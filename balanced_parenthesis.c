@@ -37,6 +37,7 @@ int balance(int len)
         c=arr[i];
         switch(c)
         {
+            case '(':
             case '{':
             case '[':
                 push(c);
@@ -49,6 +50,12 @@ int balance(int len)
                 break;
             case ']':
                 if(stack[top]==('['))
+                    pop();
+                else
+                    flag=1;
+                break;
+            case ')':
+                if(stack[top]==('('))
                     pop();
                 else
                     flag=1;
