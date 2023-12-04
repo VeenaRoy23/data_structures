@@ -54,30 +54,28 @@ void sum()
 	struct pol *pptr;
 	struct pol *qptr;
 	struct pol *rptr;
-	struct pol *newnode;
+	struct pol *new;
 	pptr=pheader->link;
-	printf("%ld--3 ",pptr);
+	
 	qptr=qheader->link;
-	printf("%ld--4 ",qptr);
+	
 	rptr=rheader;
 	
-	/*while(pptr!=NULL&&qptr!=NULL)
+	while(pptr!=NULL&&qptr!=NULL)
 	{
 		if(pptr->exp==qptr->exp)
 		{
-			newnode=(struct pol*)malloc(sizeof(struct pol));
-			newnode->link=NULL;
-			newnode->exp=pptr->exp;
-			newnode->coeff=pptr->coeff+qptr->coeff;
-			printf("%d-1-",newnode->coeff);
-			rptr->link=newnode;
-			rptr=newnode;
-			printf("\n%d-2-",newnode->coeff);
+			new=(struct pol*)malloc(sizeof(struct pol));
+			new->link=NULL;
+			new->exp=pptr->exp;
+			new->coeff=pptr->coeff+qptr->coeff;
+			rptr->link=new;
+			rptr=new;
 			pptr=pptr->link;
 			qptr=qptr->link;
 			
 		}
-	/*	else if((pptr->exp)>(qptr->exp))
+		else if((pptr->exp)>(qptr->exp))
 		{
 			new=(struct pol*)malloc(sizeof(struct pol));
 			new->link=NULL;
@@ -121,8 +119,9 @@ void sum()
 	}
 	printf("Resultant polynomial\n");
 
-	}*/
+
 }
+
 
 
 void product()
@@ -153,7 +152,7 @@ void product()
 		}
 		pptr=pptr->link;
 	}
-/*	ptr=rheader->link;
+	ptr=rheader->link;
 	while(ptr!=NULL)
 	{
 			if(ptr->exp==ptr->link->exp)
@@ -161,17 +160,24 @@ void product()
 				ptr->coeff=ptr->coeff+ptr->link->coeff;
 				ptr1=ptr->link->link;
 				free(ptr->link);
-				ptr=ptr1;
+				ptr->link=ptr1;
+				ptr=ptr->link;
 			}
-			else if(ptr->exp<ptr->link->exp)
+		/*	else if(ptr->exp<ptr->link->exp)
 			{
-				ptr1->link=ptr->link;
+				ptr1=(struct pol*)malloc((sizeof(struct pol)));
+				// ptr1->link=ptr->link;
 				ptr1->coeff=ptr->coeff;
 				ptr1->exp=ptr->exp;
+				ptr->coeff=ptr->link->coeff;
+				ptr->exp=ptr->link->exp;
+				free(ptr1);
 				ptr=ptr->link;
-				ptr->link=ptr1;
-			}
-	} */
+				
+			}  */
+			else
+				ptr=ptr->link;
+	} 
 }
 				
 				
@@ -181,23 +187,22 @@ void product()
 int main()
 {
 	int choice;
-	struct pol *pheader=(struct pol*)malloc((sizeof(struct pol)));
-	struct pol *qheader=(struct pol*)malloc((sizeof(struct pol)));
-	struct pol *rheader=(struct pol*)malloc((sizeof(struct pol)));
+	pheader=(struct pol*)malloc((sizeof(struct pol)));
+	qheader=(struct pol*)malloc((sizeof(struct pol)));
+	rheader=(struct pol*)malloc((sizeof(struct pol)));
 	getnode(pheader);
-	printf("%ld--1 ",pheader->link);
+	
 	getnode(qheader);
-	printf("%ld--2 ",qheader->link);
-	printf("polunomial 1:\n");
+	
+	printf("polynomial 1:\n");
 	display(pheader);
 	printf("polynomial 2:\n");
 	display(qheader);
-				// product();
+				product();
 				display(rheader);
-				printf("n");
 				sum();
-				//printf("%u",rheader->link);
-				//display(rheader);
+				
+				display(rheader);
 				
 	
 }
